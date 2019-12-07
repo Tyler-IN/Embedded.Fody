@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project>
+
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsOfficial Condition=" Exists('$(SolutionDir)official.snk') ">True</IsOfficial>
+    <IsOfficial Condition=" '$(IsOfficial)' == '' ">False</IsOfficial>
+    <!-- set this to True if you need to build something compatible with the signature -->
+    <IsOfficialCompatible>False</IsOfficialCompatible>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <IsPackable>False</IsPackable>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <SignAssembly>True</SignAssembly>
+    <Copyright>© Copyright $([System.DateTime]::UtcNow.ToString(yyyy)) Tyler Young. All Rights Reserved.</Copyright>
+    <AssemblyOriginatorKeyFile Condition=" '$(IsOfficial)' == 'True' ">$(SolutionDir)official.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile Condition=" '$(IsOfficial)' != 'True' AND '$(IsOfficialCompatible)' != 'True' ">$(SolutionDir)unofficial.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile Condition=" '$(IsOfficial)' != 'True' AND '$(IsOfficialCompatible)' == 'True' ">$(SolutionDir)official-public.snk</AssemblyOriginatorKeyFile>
+    <PublicSign Condition=" '$(IsOfficial)' == 'True' AND '$(IsOfficialCompatible)' != 'True' ">False</PublicSign>
+    <PublicSign Condition=" '$(IsOfficial)' != 'True' OR '$(IsOfficialCompatible)' == 'True' ">True</PublicSign>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(IsOfficial)' == 'True' ">
+    <DefineConstants Condition=" '$(DefineConstants)' != '' ">$(DefineConstants);OFFICIAL</DefineConstants>
+    <DefineConstants Condition=" '$(DefineConstants)' == '' ">OFFICIAL</DefineConstants>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <Authors>Tyler Young</Authors>
+    <Description>Direct compile-time referencing of deduplicated UTF-8 byte strings and arbitrarily encoded binary data via post-processed embedding in .NET assembly module manifest resources.</Description>
+    <PackageTags>Fody, Embedded, Embedding, Binary, UTF-8, Literal, Constant, Encoded</PackageTags>
+    <PackageProjectUrl>https://github.com/Tyler-IN/Embedded.Fody</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageOutputPath>$(SolutionDir)output</PackageOutputPath>
+  </PropertyGroup>
+
+  <Target Name="PackageAssemblySigningReport" AfterTargets="Pack" Condition=" '$(IsPackable)' != 'False' ">
+    <Message Importance="high" Text="IsOfficial: $(IsOfficial)"/>
+    <Message Importance="high" Text="IsOfficialCompatible: $(IsOfficialCompatible)"/>
+    <Message Importance="high" Text="SignAssembly: $(SignAssembly)"/>
+    <Message Importance="high" Text="PublicSign: $(PublicSign)"/>
+    <Message Importance="high" Text="AssemblyOriginatorKeyFile: $(AssemblyOriginatorKeyFile)"/>
+    <Message Importance="high" Text="DefineConstants: $(DefineConstants)"/>
+  </Target>
+
+</Project>

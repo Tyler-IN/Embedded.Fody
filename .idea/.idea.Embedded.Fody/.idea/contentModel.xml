@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\theco\.nuget\packages\microsoft.net.test.sdk\16.4.0\build\netcoreapp2.1" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="C:\Users\theco\.nuget\packages\microsoft.testplatform.testhost\16.4.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
+    <e p="C:\Users\theco\.nuget\packages\microsoft.testplatform.testhost\16.4.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
+    <e p="C:\Users\theco\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\theco\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="C:\Users\theco\.nuget\packages\xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="C:\Users\theco\.Rider2019.3\config\scratches" t="IncludeRecursive" />
+    <e p="C:\Users\theco\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\theco\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_Embedded.Fody.1302391990.00" t="ExcludeRecursive" />
+    <e p="C:\Users\theco\Documents\Projects\Embedded.Fody" t="IncludeFlat">
+      <e p=".git\info\exclude" t="IncludeRecursive" />
+      <e p="AssemblyToProcess" t="IncludeRecursive">
+        <e p="AssemblyToProcess.csproj" t="IncludeRecursive" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Release" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="AssemblyToProcess.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="SomeBinaryLiterals.cs" t="Include" />
+        <e p="SomeUtf8StringLiterals.cs" t="Include" />
+      </e>
+      <e p="Embedded" t="IncludeRecursive">
+        <e p="AssemblyAttributes.cs" t="Include" />
+        <e p="Base64LiteralAttribute.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Embedded.csproj" t="IncludeRecursive" />
+        <e p="EncodedLiteralAttribute.cs" t="Include" />
+        <e p="HexLiteralAttribute.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Release" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="Embedded.AssemblyInfo.cs" t="Include" />
+            </e>
+            <e p="netstandard2.1" t="Include">
+              <e p="Embedded.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="ReadOnlyData.cs" t="Include" />
+        <e p="Utf8LiteralAttribute.cs" t="Include" />
+        <e p="ValueLiteralAttribute.cs" t="Include" />
+      </e>
+      <e p="Embedded.Fody" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Embedded.Fody.csproj" t="IncludeRecursive" />
+        <e p="Embedded.Fody.xcf" t="Include" />
+        <e p="ModuleWeaver.CreateLoadConstInt.cs" t="Include" />
+        <e p="ModuleWeaver.cs" t="Include" />
+        <e p="ModuleWeaver.Execute.cs" t="Include" />
+        <e p="ModuleWeaver.GetEmbeddedResourceAccessorType.cs" t="Include" />
+        <e p="ModuleWeaver.GetPointerLengthCtor.cs" t="Include" />
+        <e p="ModuleWeaver.ProcessBinLitField.cs" t="Include" />
+        <e p="ModuleWeaver.ProcessUtf8Field.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Release" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="Embedded.Fody.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="Embedded.Fody.sln" t="IncludeFlat" />
+      <e p="Embedded.Fody.Tests" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="BinaryLiteralWeaverTests.cs" t="Include" />
+        <e p="Embedded.Fody.Tests.csproj" t="IncludeRecursive" />
+        <e p="FodyWeaverTests.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Release" t="Include">
+            <e p="netcoreapp3.0" t="Include">
+              <e p="Embedded.Fody.Tests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TestResultFixture.cs" t="Include" />
+        <e p="Utf8StringWeaverTests.cs" t="Include" />
+        <e p="WeaverTests.cs" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
