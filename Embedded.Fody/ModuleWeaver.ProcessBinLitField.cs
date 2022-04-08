@@ -46,32 +46,32 @@ public sealed partial class ModuleWeaver {
     fixed (char* pChars = hexChars) {
       var i = 0;
       while (l - i >= 4) {
-        var read = *(ulong*) &pChars[i];
-        var ch0 = (byte) (read & 0xFF);
-        var ch1 = (byte) ((read >> 16) & 0xFF);
-        var ch2 = (byte) ((read >> 32) & 0xFF);
-        var ch3 = (byte) ((read >> 48) & 0xFF);
+        var read = *(ulong*)&pChars[i];
+        var ch0 = (byte)(read & 0xFF);
+        var ch1 = (byte)((read >> 16) & 0xFF);
+        var ch2 = (byte)((read >> 32) & 0xFF);
+        var ch3 = (byte)((read >> 48) & 0xFF);
 
         var ch0N = (ch0 >> 6) * 9 + (ch0 & 0xF);
         var ch1N = (ch1 >> 6) * 9 + (ch1 & 0xF);
         var ch2N = (ch2 >> 6) * 9 + (ch2 & 0xF);
         var ch3N = (ch3 >> 6) * 9 + (ch3 & 0xF);
 
-        var twoBytes = (ushort) ((ch2N << 12) | (ch3N << 8) | (ch0N << 4) | ch1N);
+        var twoBytes = (ushort)((ch2N << 12) | (ch3N << 8) | (ch0N << 4) | ch1N);
 
-        *(ushort*) &pBuf[i >> 1] = twoBytes;
+        *(ushort*)&pBuf[i >> 1] = twoBytes;
 
         i += 4;
       }
 
       // ReSharper disable once InvertIf
       if (l > i) {
-        var read = *(uint*) &pChars[i];
-        var ch0 = (byte) (read & 0xFF);
-        var ch1 = (byte) ((read >> 16) & 0xFF);
+        var read = *(uint*)&pChars[i];
+        var ch0 = (byte)(read & 0xFF);
+        var ch1 = (byte)((read >> 16) & 0xFF);
         var ch0N = (ch0 >> 6) * 9 + (ch0 & 0xF);
         var ch1N = (ch1 >> 6) * 9 + (ch1 & 0xF);
-        var oneByte = (byte) ((ch0N << 4) | ch1N);
+        var oneByte = (byte)((ch0N << 4) | ch1N);
         pBuf[i >> 1] = oneByte;
       }
     }
@@ -92,46 +92,46 @@ public sealed partial class ModuleWeaver {
     var attrName = ca.AttributeType.Name;
     var args = ca.ConstructorArguments;
     if (attrName == _binLitAttrName) {
-      alignment = (int) args[0].Value;
+      alignment = (int)args[0].Value;
       if (args[1].Value is CustomAttributeArgument[] caa) {
         var firstArrayVal = caa[0].Value;
         data = firstArrayVal switch {
-          sbyte => caa.Select(x => (byte) (sbyte) x.Value).ToArray(),
-          byte => caa.Select(x => (byte) x.Value).ToArray(),
-          short => caa.SelectMany(x => BitConverter.GetBytes((short) x.Value)).ToArray(),
-          ushort => caa.SelectMany(x => BitConverter.GetBytes((ushort) x.Value)).ToArray(),
-          int => caa.SelectMany(x => BitConverter.GetBytes((int) x.Value)).ToArray(),
-          uint => caa.SelectMany(x => BitConverter.GetBytes((uint) x.Value)).ToArray(),
-          long => caa.SelectMany(x => BitConverter.GetBytes((long) x.Value)).ToArray(),
-          ulong => caa.SelectMany(x => BitConverter.GetBytes((ulong) x.Value)).ToArray(),
-          float => caa.SelectMany(x => BitConverter.GetBytes((float) x.Value)).ToArray(),
-          double => caa.SelectMany(x => BitConverter.GetBytes((double) x.Value)).ToArray(),
+          sbyte => caa.Select(x => (byte)(sbyte)x.Value).ToArray(),
+          byte => caa.Select(x => (byte)x.Value).ToArray(),
+          short => caa.SelectMany(x => BitConverter.GetBytes((short)x.Value)).ToArray(),
+          ushort => caa.SelectMany(x => BitConverter.GetBytes((ushort)x.Value)).ToArray(),
+          int => caa.SelectMany(x => BitConverter.GetBytes((int)x.Value)).ToArray(),
+          uint => caa.SelectMany(x => BitConverter.GetBytes((uint)x.Value)).ToArray(),
+          long => caa.SelectMany(x => BitConverter.GetBytes((long)x.Value)).ToArray(),
+          ulong => caa.SelectMany(x => BitConverter.GetBytes((ulong)x.Value)).ToArray(),
+          float => caa.SelectMany(x => BitConverter.GetBytes((float)x.Value)).ToArray(),
+          double => caa.SelectMany(x => BitConverter.GetBytes((double)x.Value)).ToArray(),
           _ => throw new NotSupportedException()
         };
       }
       else
-        data = (byte[]) args[1].Value;
+        data = (byte[])args[1].Value;
     }
     else if (attrName == _hexLitAttrName) {
-      alignment = (int) args[0].Value;
+      alignment = (int)args[0].Value;
       var strings = args[1].Value is CustomAttributeArgument[] caa
-        ? caa.Select(x => (string) x.Value).ToArray()
-        : (string[]) args[1].Value;
+        ? caa.Select(x => (string)x.Value).ToArray()
+        : (string[])args[1].Value;
       data = ParseHexStrings(strings);
     }
     else if (attrName == _b64LitAttrName) {
-      alignment = (int) args[0].Value;
+      alignment = (int)args[0].Value;
       var strings = args[1].Value is CustomAttributeArgument[] caa
-        ? caa.Select(x => (string) x.Value).ToArray()
-        : (string[]) args[1].Value;
+        ? caa.Select(x => (string)x.Value).ToArray()
+        : (string[])args[1].Value;
       data = ParseBase64Strings(strings);
     }
     else if (attrName == _encLitAttrName) {
-      alignment = (int) args[0].Value;
-      var codePage = (int) args[1].Value;
+      alignment = (int)args[0].Value;
+      var codePage = (int)args[1].Value;
       data = TranscodeStrings(codePage, args[2].Value is CustomAttributeArgument[] caa
-        ? caa.Select(x => (string) x.Value).ToArray()
-        : (string[]) args[2].Value);
+        ? caa.Select(x => (string)x.Value).ToArray()
+        : (string[])args[2].Value);
     }
     else
       throw new NotSupportedException(attrName);

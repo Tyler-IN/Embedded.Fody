@@ -1,8 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using PublicAPI = JetBrains.Annotations.PublicAPIAttribute;
-using NotNullAttribute = JetBrains.Annotations.NotNullAttribute;
-using ItemNotNull = JetBrains.Annotations.ItemNotNullAttribute;
+using JetBrains.Annotations;
 
 /// <summary>
 /// Represents a UTF-8 string literal.
@@ -25,7 +23,6 @@ public sealed class Utf8LiteralAttribute : Attribute {
   /// <remarks>
   /// Unless otherwise specified, string literals that are identical will be represented by the same pointer.
   /// </remarks>
-  public Utf8LiteralAttribute([NotNull, ItemNotNull] params string[] value) {
-  }
+  public Utf8LiteralAttribute(params string[] value) { }
 
 }

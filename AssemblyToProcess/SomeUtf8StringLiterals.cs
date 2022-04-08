@@ -21,7 +21,7 @@ public static unsafe class SomeUtf8StringLiterals {
   public static byte* Utf8Literal2Dupe;
 
   [Utf8Literal("Utf8Literal2 String")]
-  public static ReadOnlyData<byte> Utf8Literal2ReadOnlyData; 
+  public static ReadOnlyData<byte> Utf8Literal2ReadOnlyData;
 
   [Utf8Literal(null)]
   public static readonly byte* Utf8Literal3;

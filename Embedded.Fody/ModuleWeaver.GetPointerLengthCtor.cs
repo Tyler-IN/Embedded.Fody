@@ -19,9 +19,9 @@ public sealed partial class ModuleWeaver {
 
         var firstParamType = ps[0].ParameterType;
         if (firstParamType is GenericParameter gp1)
-          firstParamType = ((GenericInstanceType) fieldType).GenericArguments[gp1.Position];
+          firstParamType = ((GenericInstanceType)fieldType).GenericArguments[gp1.Position];
         if (!(firstParamType.IsPointer
-          || (firstParamType.Namespace == "System" && firstParamType.Name == "IntPtr")))
+              || (firstParamType.Namespace == "System" && firstParamType.Name == "IntPtr")))
           return false;
 
         if (pc == 1)
@@ -29,7 +29,7 @@ public sealed partial class ModuleWeaver {
 
         var secondParamType = ps[1].ParameterType;
         if (secondParamType is GenericParameter gp2)
-          secondParamType = ((GenericInstanceType) fieldType).GenericArguments[gp2.Position];
+          secondParamType = ((GenericInstanceType)fieldType).GenericArguments[gp2.Position];
 
         return secondParamType.IsPrimitive && secondParamType.Namespace == "System"
           && secondParamType.Name is "Int32" or "Int64" or "UInt32" or "UInt64";
@@ -39,9 +39,9 @@ public sealed partial class ModuleWeaver {
     ctorParamCount = ctorDef.Parameters.Count;
 
     if (fieldType is GenericInstanceType fieldGit)
-      return ModuleDefinition.ImportReference( MakeHostInstanceGeneric(ModuleDefinition.ImportReference( ctorDef ), fieldGit.GenericArguments.ToArray()), fieldGit );
+      return ModuleDefinition.ImportReference(MakeHostInstanceGeneric(ModuleDefinition.ImportReference(ctorDef), fieldGit.GenericArguments.ToArray()), fieldGit);
 
-    return ModuleDefinition.ImportReference( ctorDef );
+    return ModuleDefinition.ImportReference(ctorDef);
   }
 
   public static MethodReference MakeHostInstanceGeneric(MethodReference methodRef, params TypeReference[] args) {

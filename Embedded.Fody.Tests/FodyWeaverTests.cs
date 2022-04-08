@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
 using Xunit;
 using Xunit.Abstractions;
 
+[PublicAPI]
 [Collection("WeaverTests")]
 public class FodyWeaverTests : WeaverTests {
 

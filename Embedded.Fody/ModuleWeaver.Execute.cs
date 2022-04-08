@@ -83,9 +83,9 @@ public sealed partial class ModuleWeaver {
     foreach (var type in ModuleDefinition.GetAllTypes()) {
       foreach (var field in type.Fields.Where(field => field.IsStatic).ToArray())
       foreach (var ca in (_attrAsmName == null
-        ? field.CustomAttributes
-        : field.CustomAttributes
-          .Where(ca => ca.AttributeType.Resolve().Module.Assembly.Name.Name == _attrAsmName)).ToArray()) {
+                 ? field.CustomAttributes
+                 : field.CustomAttributes
+                   .Where(ca => ca.AttributeType.Resolve().Module.Assembly.Name.Name == _attrAsmName)).ToArray()) {
         if (ca.AttributeType.Name == _utf8AttrName)
           utf8Fields.Add((ca, field));
         else if (_binLitAttrNames.Contains(ca.AttributeType.Name))

@@ -7,22 +7,22 @@ public static unsafe class SomeBinaryLiterals {
 
   public static readonly byte* BinNonLiteral;
 
-  [ValueLiteral(0, new byte[] {1, 2, 3})]
+  [ValueLiteral(0, new byte[] { 1, 2, 3 })]
   public static readonly byte* BinLiteral1;
 
-  [ValueLiteral(4, new byte[] {15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1})]
+  [ValueLiteral(4, new byte[] { 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 })]
   public static readonly byte* BinLiteral2;
 
   [ValueLiteral(0, 0x04030201)]
   public static readonly IntPtr BinLiteral3;
 
-  [ValueLiteral(4, new byte[] {15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1})]
+  [ValueLiteral(4, new byte[] { 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 })]
   public static byte* BinLiteral4;
 
   [ValueLiteral(3, 0x01020304u)]
   public static readonly (IntPtr, int) BinLiteral5;
 
-  [ValueLiteral(3, new byte[] {1, 2, 3})]
+  [ValueLiteral(3, new byte[] { 1, 2, 3 })]
   public static readonly ReadOnlyData<byte> BinLiteral6;
 
   [Base64Literal(0, "AQ==")]
@@ -50,10 +50,12 @@ public static unsafe class SomeBinaryLiterals {
   public static readonly byte* BinLiteral14; // [ 0xAB, 0xCD, 0xEF, 0x01 ]
 
   [EncodedLiteral(0, 28591, "This is ISO-8559-1.\0")]
-  public static readonly (IntPtr,long) BinLiteral15;
+  public static readonly (IntPtr, long) BinLiteral15;
 
+#if false // Support for UTF-7 is disabled. See https://aka.ms/dotnet-warnings/SYSLIB0001 for more information.
   [EncodedLiteral(0, 65000, "This is UTF-7.\0")]
-  public static readonly (IntPtr,int) BinLiteral16;
+  public static readonly (IntPtr, int) BinLiteral16;
+#endif
 
   [Base64Literal(0,
     "MBu0Iclx+", "7ftAdzDqZ", "ds5T3wNAI", "rqYK5fQ8n", "1IxPA4g6q",

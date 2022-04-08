@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
-namespace Embedded; 
+namespace Embedded;
 
 /// <summary>
 /// Represents a data pointer and length combination with the explicit intent of being readonly.
@@ -26,7 +26,7 @@ public readonly unsafe struct ReadOnlyData<T> where T : unmanaged {
   /// <summary>
   /// The generic typed pointer value.
   /// </summary>
-  public T* TypedPointer => (T*) _ptr;
+  public T* TypedPointer => (T*)_ptr;
 
   /// <summary>
   /// The length of the data represented by the pointer.
@@ -50,7 +50,7 @@ public readonly unsafe struct ReadOnlyData<T> where T : unmanaged {
   /// This represents the size in count of <typeparamref name="T" />, not in bytes.
   /// </param>
   public ReadOnlyData(T* ptr, int length) {
-    _ptr = (IntPtr) ptr;
+    _ptr = (IntPtr)ptr;
     _length = length;
   }
 
@@ -59,7 +59,7 @@ public readonly unsafe struct ReadOnlyData<T> where T : unmanaged {
   /// Same behavior as accessing <see cref="TypedPointer"/>.
   /// </summary>
   public static implicit operator T*(ReadOnlyData<T> d)
-    => (T*) d._ptr;
+    => (T*)d._ptr;
 
   /// <summary>
   /// Equality comparison operator for <see cref="ReadOnlyData{T}"/>s.
@@ -119,7 +119,7 @@ public readonly unsafe struct ReadOnlyData<T> where T : unmanaged {
   /// <returns>A <see cref="ReadOnlyData{T}"/> of type <typeparamref name="TOther"/> with an accounted-for length conversion.</returns>
   public ReadOnlyData<TOther> Recast<TOther>() where TOther : unmanaged {
     var otherTSize = sizeof(TOther);
-    return new((TOther*) _ptr, checked((int) Size / otherTSize));
+    return new((TOther*)_ptr, checked((int)Size / otherTSize));
   }
 
   /// <summary>
@@ -140,9 +140,9 @@ public readonly unsafe struct ReadOnlyData<T> where T : unmanaged {
     var t = _toStringCache;
     var ptrStr = "0x" + _ptr.ToString(IntPtr.Size == 8 ? "X16" : "X8");
     if (typeof(T) == typeof(char))
-      return $"{t} @ 0x{ptrStr}: {System.Net.WebUtility.UrlEncode(new((char*) TypedPointer, 0, _length))}";
+      return $"{t} @ 0x{ptrStr}: {System.Net.WebUtility.UrlEncode(new((char*)TypedPointer, 0, _length))}";
     if (typeof(T) == typeof(byte) || typeof(T) == typeof(sbyte))
-      return $"{t} @ 0x{ptrStr}: {System.Net.WebUtility.UrlEncode(new((sbyte*) TypedPointer, 0, _length))}";
+      return $"{t} @ 0x{ptrStr}: {System.Net.WebUtility.UrlEncode(new((sbyte*)TypedPointer, 0, _length))}";
 
     return $"{t} @ 0x{ptrStr}: {sizeof(T)}x{_length}";
   }

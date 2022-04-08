@@ -1,8 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using PublicAPI = JetBrains.Annotations.PublicAPIAttribute;
-using NotNullAttribute = JetBrains.Annotations.NotNullAttribute;
-using ItemNotNull = JetBrains.Annotations.ItemNotNullAttribute;
+using JetBrains.Annotations;
 
 /// <summary>
 /// Represents a encoded text binary literal.
@@ -27,7 +25,6 @@ public sealed class EncodedLiteralAttribute : Attribute {
   /// The literal data represented in text.
   /// If multiple strings are specified, they are concatenated before being transcoded.
   /// </param>
-  public EncodedLiteralAttribute(int alignBits, int codePage, [NotNull, ItemNotNull] params string[] text) {
-  }
+  public EncodedLiteralAttribute(int alignBits, int codePage, params string[] text) { }
 
 }

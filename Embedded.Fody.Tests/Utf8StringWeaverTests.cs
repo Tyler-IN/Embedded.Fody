@@ -3,9 +3,11 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Embedded;
+using JetBrains.Annotations;
 using Xunit;
 using Xunit.Abstractions;
 
+[PublicAPI]
 [Collection("WeaverTests")]
 public unsafe class Utf8StringWeaverTests : WeaverTests {
 

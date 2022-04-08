@@ -1,5 +1,7 @@
 using Fody;
+using JetBrains.Annotations;
 
+[PublicAPI]
 public class TestResultFixture {
 
   public TestResult TestResult;

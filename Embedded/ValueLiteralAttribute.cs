@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using PublicAPI = JetBrains.Annotations.PublicAPIAttribute;
-using NotNullAttribute = JetBrains.Annotations.NotNullAttribute;
+using JetBrains.Annotations;
 
 /// <summary>
 /// Represents a binary literal.
@@ -23,8 +22,7 @@ public sealed class ValueLiteralAttribute : Attribute {
   /// An array of <see cref="SByte"/>.
   /// Alignment is not applied between values.
   /// </param>
-  public ValueLiteralAttribute(int alignBits, [NotNull] params sbyte[] values) {
-  }
+  public ValueLiteralAttribute(int alignBits, params sbyte[] values) { }
 
   /// <summary>
   /// A literal array of <see cref="Byte"/>.
@@ -38,8 +36,7 @@ public sealed class ValueLiteralAttribute : Attribute {
   /// An array of <see cref="Byte"/>.
   /// Alignment is not applied between values.
   /// </param>
-  public ValueLiteralAttribute(int alignBits, [NotNull] params byte[] values) {
-  }
+  public ValueLiteralAttribute(int alignBits, params byte[] values) { }
 
   /// <summary>
   /// A literal array of <see cref="Int16"/>.
@@ -53,8 +50,7 @@ public sealed class ValueLiteralAttribute : Attribute {
   /// An array of <see cref="Int16"/>.
   /// Alignment is not applied between values.
   /// </param>
-  public ValueLiteralAttribute(int alignBits, [NotNull] params short[] values) {
-  }
+  public ValueLiteralAttribute(int alignBits, params short[] values) { }
 
   /// <summary>
   /// A literal array of <see cref="UInt16"/>.
@@ -68,8 +64,7 @@ public sealed class ValueLiteralAttribute : Attribute {
   /// An array of <see cref="UInt16"/>.
   /// Alignment is not applied between values.
   /// </param>
-  public ValueLiteralAttribute(int alignBits, [NotNull] params ushort[] values) {
-  }
+  public ValueLiteralAttribute(int alignBits, params ushort[] values) { }
 
   /// <summary>
   /// A literal array of <see cref="Int32"/>.
@@ -83,8 +78,7 @@ public sealed class ValueLiteralAttribute : Attribute {
   /// An array of <see cref="Int32"/>.
   /// Alignment is not applied between values.
   /// </param>
-  public ValueLiteralAttribute(int alignBits, [NotNull] params int[] values) {
-  }
+  public ValueLiteralAttribute(int alignBits, params int[] values) { }
 
   /// <summary>
   /// A literal array of <see cref="UInt32"/>.
@@ -98,8 +92,7 @@ public sealed class ValueLiteralAttribute : Attribute {
   /// An array of <see cref="UInt32"/>.
   /// Alignment is not applied between values.
   /// </param>
-  public ValueLiteralAttribute(int alignBits, [NotNull] params uint[] values) {
-  }
+  public ValueLiteralAttribute(int alignBits, params uint[] values) { }
 
   /// <summary>
   /// A literal array of <see cref="Int64"/>.
@@ -113,8 +106,7 @@ public sealed class ValueLiteralAttribute : Attribute {
   /// An array of <see cref="Int64"/>.
   /// Alignment is not applied between values.
   /// </param>
-  public ValueLiteralAttribute(int alignBits, [NotNull] params long[] values) {
-  }
+  public ValueLiteralAttribute(int alignBits, params long[] values) { }
 
   /// <summary>
   /// A literal array of <see cref="UInt64"/>.
@@ -128,8 +120,7 @@ public sealed class ValueLiteralAttribute : Attribute {
   /// An array of <see cref="UInt64"/>.
   /// Alignment is not applied between values.
   /// </param>
-  public ValueLiteralAttribute(int alignBits, [NotNull] params ulong[] values) {
-  }
+  public ValueLiteralAttribute(int alignBits, params ulong[] values) { }
 
   /// <summary>
   /// A literal array of <see cref="Single"/>.
@@ -143,8 +134,7 @@ public sealed class ValueLiteralAttribute : Attribute {
   /// An array of <see cref="Single"/>.
   /// Alignment is not applied between values.
   /// </param>
-  public ValueLiteralAttribute(int alignBits, [NotNull] params float[] values) {
-  }
+  public ValueLiteralAttribute(int alignBits, params float[] values) { }
 
   /// <summary>
   /// A literal array of <see cref="Double"/>.
@@ -158,7 +148,6 @@ public sealed class ValueLiteralAttribute : Attribute {
   /// An array of <see cref="Double"/>.
   /// Alignment is not applied between values.
   /// </param>
-  public ValueLiteralAttribute(int alignBits, [NotNull] params double[] values) {
-  }
+  public ValueLiteralAttribute(int alignBits, params double[] values) { }
 
 }

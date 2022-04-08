@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
-using PublicAPI = JetBrains.Annotations.PublicAPIAttribute;
-using NotNullAttribute = JetBrains.Annotations.NotNullAttribute;
-using ItemNotNull = JetBrains.Annotations.ItemNotNullAttribute;
+using JetBrains.Annotations;
 
 /// <summary>
 /// Represents a Base64 encoded binary literal.
@@ -25,7 +23,6 @@ public sealed class Base64LiteralAttribute : Attribute {
   /// The literal data represented by Base64 text.
   /// If multiple strings are specified, they are concatenated before being parsed.
   /// </param>
-  public Base64LiteralAttribute(int alignBits, [NotNull, ItemNotNull] params string[] data) {
-  }
+  public Base64LiteralAttribute(int alignBits, params string[] data) { }
 
 }

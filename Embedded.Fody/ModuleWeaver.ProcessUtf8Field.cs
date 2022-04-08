@@ -16,7 +16,7 @@ public sealed partial class ModuleWeaver {
     if (ca.ConstructorArguments[0].Value is CustomAttributeArgument[] a)
       s = a[0].Value as string;
     else
-      s = (string) ca.ConstructorArguments[0].Value;
+      s = (string)ca.ConstructorArguments[0].Value;
 
     if (s == null) {
       // TODO: optional removal of attribute
