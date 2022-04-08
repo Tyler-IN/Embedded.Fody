@@ -37,6 +37,7 @@
     <Description>Direct compile-time referencing of deduplicated UTF-8 byte strings and arbitrarily encoded binary data via post-processed embedding in .NET assembly module manifest resources.</Description>
     <PackageTags>Fody, Embedded, Embedding, Binary, UTF-8, Literal, Constant, Encoded</PackageTags>
     <PackageProjectUrl>https://github.com/Tyler-IN/Embedded.Fody</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Tyler-IN/Embedded.Fody.git</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageOutputPath>$(SolutionDir)output</PackageOutputPath>
   </PropertyGroup>
