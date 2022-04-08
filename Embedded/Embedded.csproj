@@ -14,9 +14,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" PrivateAssets="All" />
-    <PackageReference Include="Fody" Version="6.2.0" PrivateAssets="All" />
-    <PackageReference Include="FodyPackaging" Version="6.2.0" PrivateAssets="All" />
+    <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" PrivateAssets="All" />
+    <PackageReference Include="Fody" Version="6.6.0" PrivateAssets="All" />
+    <PackageReference Include="FodyPackaging" Version="6.6.0" PrivateAssets="All" />
   </ItemGroup>
 
   <Choose>
