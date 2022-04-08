@@ -1,9 +1,11 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using PublicAPI = JetBrains.Annotations.PublicAPIAttribute;
-using NotNullAttribute = JetBrains.Annotations.NotNullAttribute;
-using ItemNotNull = JetBrains.Annotations.ItemNotNullAttribute;
+using JetBrains.Annotations;
+using JbNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
+#if NETSTANDARD2_1
+using SdNotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 
+#endif
 /// <summary>
 /// Represents a hexadecimal encoded binary literal.
 /// </summary>
@@ -24,7 +26,13 @@ public sealed class HexLiteralAttribute : Attribute {
   /// The literal data represented by hexadecimal text.
   /// If multiple strings are specified, they are concatenated before being parsed.
   /// </param>
-  public HexLiteralAttribute(int alignBits, [NotNull,ItemNotNull]params string[] data) {
+  public HexLiteralAttribute(int alignBits,
+#if NETSTANDARD && !NETSTANDARD2_0
+    [SdNotNull, JbNotNull, ItemNotNull] params string[] data
+#else
+    [JbNotNull, ItemNotNull] params string[] data
+#endif
+  ) {
   }
 
 }

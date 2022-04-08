@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,7 +12,7 @@ public sealed partial class ModuleWeaver {
   private void ProcessUtf8Field(CustomAttribute ca, FieldDefinition field, IDictionary<string, long> utf8StringOffset, MemoryStream utf8StringResourceStream) {
     var td = field.DeclaringType;
 
-    string s;
+    string? s;
     if (ca.ConstructorArguments[0].Value is CustomAttributeArgument[] a)
       s = a[0].Value as string;
     else
@@ -63,7 +62,7 @@ public sealed partial class ModuleWeaver {
     var staticCtor = td.GetStaticConstructor();
 
     if (staticCtor == null) {
-      staticCtor = new MethodDefinition(".cctor", MethodAttributes.Private | MethodAttributes.Static | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName | MethodAttributes.HideBySig, _trVoid);
+      staticCtor = new(".cctor", MethodAttributes.Private | MethodAttributes.Static | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName | MethodAttributes.HideBySig, _trVoid);
       {
         var ilp = staticCtor.Body.GetILProcessor();
         ilp.Emit(OpCodes.Ret);
@@ -76,12 +75,12 @@ public sealed partial class ModuleWeaver {
     var storeStaticFld = il.FirstOrDefault(ins => ins.OpCode == OpCodes.Stsfld && ins.Operand is FieldReference f && f.Resolve() == field);
 
     var fieldType = field.FieldType;
-    var fieldIsPtr = fieldType.IsPointer || (fieldType.Namespace == "System" && fieldType.Name == "IntPtr");
+    var fieldIsPtr = fieldType.IsPointer || fieldType.Namespace == "System" && fieldType.Name == "IntPtr";
 
     {
       var ilp = staticCtor.Body.GetILProcessor();
       if (storeStaticFld == null) {
-        var first = il.First();
+        //var first = il.First();
 
         {
           storeStaticFld = ilp.Create(OpCodes.Stsfld, field);

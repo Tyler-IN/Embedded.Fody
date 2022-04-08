@@ -50,4 +50,20 @@
     <Message Importance="high" Text="DefineConstants: $(DefineConstants)"/>
   </Target>
 
+
+  <Target Name="IncludeFodyDebugSymbols" AfterTargets="IncludeFodyFiles" Condition=" '$(Configuration)' != 'Release' ">
+    <PropertyGroup>
+      <PdbFile>$(WeaverDirPath)\netstandard2.0\$(PackageId).pdb</PdbFile>
+    </PropertyGroup>
+
+    <Message Importance="high" Text="Missing Debug Symbols..." Condition="!Exists($(PdbFile))"/>
+    <Message Importance="high" Text="Packing Debug Symbols..." Condition="Exists($(PdbFile))"/>
+
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="$(PdbFile)"
+                              PackagePath="weaver\$(PackageId).pdb"
+                              Condition="Exists($(PdbFile))" />
+    </ItemGroup>
+  </Target>
+  
 </Project>

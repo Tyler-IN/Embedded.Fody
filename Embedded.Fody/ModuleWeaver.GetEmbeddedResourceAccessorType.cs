@@ -17,7 +17,7 @@ public sealed partial class ModuleWeaver {
     if (td != null)
       return td.Fields.First();
 
-    td = new TypeDefinition(null,
+    td = new(null,
       tName,
       TypeAttributes.NotPublic | TypeAttributes.Abstract | TypeAttributes.Sealed | TypeAttributes.BeforeFieldInit,
       _trObject);
@@ -37,10 +37,13 @@ public sealed partial class ModuleWeaver {
         (_trType.Resolve().GetMethods().First(m => m.Name == nameof(Type.GetTypeFromHandle)));
       var assemblyGetter = ModuleDefinition.ImportReference
         (_trType.Resolve().Properties.First(p => p.Name == nameof(Type.Assembly)).GetMethod);
+      var tdAsm = _trAssembly.Resolve();
       var getManifestResourceStream = ModuleDefinition.ImportReference
-        (_trAssembly.Resolve().GetMethods().First(m => m.Name == nameof(Assembly.GetManifestResourceStream)));
-      var positionPointerGetter = ModuleDefinition.ImportReference
-        (_trUnmanagedMemoryStream.Resolve().Properties.First(p => p.Name == nameof(UnmanagedMemoryStream.PositionPointer)).GetMethod);
+        (tdAsm.GetMethods().First(m => m.Name == nameof(Assembly.GetManifestResourceStream)));
+      var tdUms = _trUnmanagedMemoryStream.Resolve();
+      var positionPointerGetter = tdUms == null // wtf
+        ? ModuleDefinition.ImportReference(typeof(UnmanagedMemoryStream).GetProperty(nameof(UnmanagedMemoryStream.PositionPointer))?.GetMethod)
+        : ModuleDefinition.ImportReference(tdUms.Properties.First(p => p.Name == nameof(UnmanagedMemoryStream.PositionPointer)).GetMethod);
 
       il.Emit(OpCodes.Ldtoken, td);
       il.Emit(OpCodes.Call, getTypeFromHandle);

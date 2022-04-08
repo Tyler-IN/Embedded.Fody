@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using Mono.Cecil;
@@ -11,18 +10,18 @@ using Mono.Cecil.Rocks;
 
 public sealed partial class ModuleWeaver {
 
-  private static readonly Regex rxNonHexChars = new Regex(@"(?:^0x|[^0-9A-Fa-f]+)", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+  private static readonly Regex RxNonHexChars = new(@"(?:^0x|[^0-9A-Fa-f]+)", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
   private byte[] ParseHexStrings(string[] ss)
-    => HexStringToBytes(rxNonHexChars.Replace(string.Concat(ss), ""));
+    => HexStringToBytes(RxNonHexChars.Replace(string.Concat(ss), ""));
 
-  private static readonly Regex rxNonBase64Chars = new Regex(@"[^0-9A-Za-z\+\/=]+", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+  private static readonly Regex RxNonBase64Chars = new(@"[^0-9A-Za-z\+\/=]+", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
   private byte[] ParseBase64Strings(string[] ss) {
-    string s = null;
+    string? s = null;
     try {
       s = string.Concat(ss);
-      s = rxNonBase64Chars.Replace(s, "");
+      s = RxNonBase64Chars.Replace(s, "");
       return Convert.FromBase64String(s);
     }
     catch (FormatException fe) {
@@ -65,6 +64,7 @@ public sealed partial class ModuleWeaver {
         i += 4;
       }
 
+      // ReSharper disable once InvertIf
       if (l > i) {
         var read = *(uint*) &pChars[i];
         var ch0 = (byte) (read & 0xFF);
@@ -96,16 +96,16 @@ public sealed partial class ModuleWeaver {
       if (args[1].Value is CustomAttributeArgument[] caa) {
         var firstArrayVal = caa[0].Value;
         data = firstArrayVal switch {
-          sbyte _ => caa.Select(x => (byte) (sbyte) x.Value).ToArray(),
-          byte _ => caa.Select(x => (byte) x.Value).ToArray(),
-          short _ => caa.SelectMany(x => BitConverter.GetBytes((short) x.Value)).ToArray(),
-          ushort _ => caa.SelectMany(x => BitConverter.GetBytes((ushort) x.Value)).ToArray(),
-          int _ => caa.SelectMany(x => BitConverter.GetBytes((int) x.Value)).ToArray(),
-          uint _ => caa.SelectMany(x => BitConverter.GetBytes((uint) x.Value)).ToArray(),
-          long _ => caa.SelectMany(x => BitConverter.GetBytes((long) x.Value)).ToArray(),
-          ulong _ => caa.SelectMany(x => BitConverter.GetBytes((ulong) x.Value)).ToArray(),
-          float _ => caa.SelectMany(x => BitConverter.GetBytes((float) x.Value)).ToArray(),
-          double _ => caa.SelectMany(x => BitConverter.GetBytes((double) x.Value)).ToArray(),
+          sbyte => caa.Select(x => (byte) (sbyte) x.Value).ToArray(),
+          byte => caa.Select(x => (byte) x.Value).ToArray(),
+          short => caa.SelectMany(x => BitConverter.GetBytes((short) x.Value)).ToArray(),
+          ushort => caa.SelectMany(x => BitConverter.GetBytes((ushort) x.Value)).ToArray(),
+          int => caa.SelectMany(x => BitConverter.GetBytes((int) x.Value)).ToArray(),
+          uint => caa.SelectMany(x => BitConverter.GetBytes((uint) x.Value)).ToArray(),
+          long => caa.SelectMany(x => BitConverter.GetBytes((long) x.Value)).ToArray(),
+          ulong => caa.SelectMany(x => BitConverter.GetBytes((ulong) x.Value)).ToArray(),
+          float => caa.SelectMany(x => BitConverter.GetBytes((float) x.Value)).ToArray(),
+          double => caa.SelectMany(x => BitConverter.GetBytes((double) x.Value)).ToArray(),
           _ => throw new NotSupportedException()
         };
       }
@@ -165,7 +165,7 @@ public sealed partial class ModuleWeaver {
     var staticCtor = td.GetStaticConstructor();
 
     if (staticCtor == null) {
-      staticCtor = new MethodDefinition(".cctor", MethodAttributes.Private | MethodAttributes.Static | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName | MethodAttributes.HideBySig, _trVoid);
+      staticCtor = new(".cctor", MethodAttributes.Private | MethodAttributes.Static | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName | MethodAttributes.HideBySig, _trVoid);
       {
         var ilp = staticCtor.Body.GetILProcessor();
         ilp.Emit(OpCodes.Ret);
@@ -184,7 +184,7 @@ public sealed partial class ModuleWeaver {
     {
       var ilp = staticCtor.Body.GetILProcessor();
       if (storeStaticFld == null) {
-        var first = il.First();
+        //var first = il.First();
         {
           storeStaticFld = ilp.Create(OpCodes.Stsfld, field);
           ilp.InsertBefore(il.First(), storeStaticFld);

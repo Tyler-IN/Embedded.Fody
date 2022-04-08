@@ -4,11 +4,11 @@ using Mono.Cecil.Cil;
 public sealed partial class ModuleWeaver {
 
   private static Instruction CreateLoadConstInt(ILProcessor ilp, long value)
-    => value > int.MaxValue || value < int.MinValue
+    => value is > int.MaxValue or < int.MinValue
       ? ilp.Create(OpCodes.Ldc_I8, value)
-      : value > sbyte.MaxValue || value < sbyte.MinValue
+      : value is > sbyte.MaxValue or < sbyte.MinValue
         ? ilp.Create(OpCodes.Ldc_I4, (int) value)
-        : value < -1 || value > 8
+        : value is < -1 or > 8
           ? ilp.Create(OpCodes.Ldc_I4_S, (sbyte) value)
           : ilp.Create(value switch {
             -1 => OpCodes.Ldc_I4_M1,

@@ -5,8 +5,7 @@ using Mono.Cecil.Rocks;
 public sealed partial class ModuleWeaver {
 
   private MethodReference GetPointerLengthCtor(TypeReference fieldType, out int ctorParamCount) {
-    var gitField = fieldType as GenericInstanceType;
-    var tdField = gitField == null
+    var tdField = !(fieldType is GenericInstanceType gitField)
       ? fieldType.Resolve()
       : gitField.Resolve();
 
@@ -15,7 +14,7 @@ public sealed partial class ModuleWeaver {
       .Where(c => {
         var ps = c.Parameters;
         var pc = ps.Count;
-        if (pc < 1 || pc > 2)
+        if (pc is < 1 or > 2)
           return false;
 
         var firstParamType = ps[0].ParameterType;
@@ -33,8 +32,7 @@ public sealed partial class ModuleWeaver {
           secondParamType = ((GenericInstanceType) fieldType).GenericArguments[gp2.Position];
 
         return secondParamType.IsPrimitive && secondParamType.Namespace == "System"
-          && (secondParamType.Name == "Int32" || secondParamType.Name == "Int64"
-            || secondParamType.Name == "UInt32" || secondParamType.Name == "UInt64");
+          && secondParamType.Name is "Int32" or "Int64" or "UInt32" or "UInt64";
       })
       .OrderByDescending(c => c.Parameters.Count)
       .First();
@@ -57,10 +55,10 @@ public sealed partial class ModuleWeaver {
     };
 
     foreach (var parameter in methodRef.Parameters)
-      reference.Parameters.Add(new ParameterDefinition(parameter.ParameterType));
+      reference.Parameters.Add(new(parameter.ParameterType));
 
     foreach (var genericParam in methodRef.GenericParameters)
-      reference.GenericParameters.Add(new GenericParameter(genericParam.Name, reference));
+      reference.GenericParameters.Add(new(genericParam.Name, reference));
 
     return reference;
   }

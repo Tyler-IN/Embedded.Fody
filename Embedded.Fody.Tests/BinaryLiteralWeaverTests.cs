@@ -15,7 +15,7 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateBinLiteralsResource() {
-    var ums = (UnmanagedMemoryStream) TestResult.Assembly.GetManifestResourceStream("RDATA");
+    var ums = (UnmanagedMemoryStream) TestResult.Assembly.GetManifestResourceStream("RDATA")!;
     Assert.NotNull(ums);
     var bufSize = ums.Length;
     Assert.NotEqual(0, bufSize);
@@ -26,8 +26,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateBinLiteral1() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral1)).GetValue(null));
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral1))!.GetValue(null)!);
     Assert.NotEqual((IntPtr) 0, (IntPtr) v);
     Assert.Equal(1, v[0]);
     Assert.Equal(2, v[1]);
@@ -50,8 +50,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateBinLiteral2() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral2)).GetValue(null));
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral2))!.GetValue(null)!);
     Assert.NotEqual((IntPtr) 0, (IntPtr) v);
     Assert.Equal(15, v[0]);
     Assert.Equal(14, v[1]);
@@ -74,8 +74,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateBinLiteral3() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (IntPtr) t.GetField(nameof(SomeBinaryLiterals.BinLiteral3)).GetValue(null);
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (IntPtr) t.GetField(nameof(SomeBinaryLiterals.BinLiteral3))!.GetValue(null)!;
     var p = (byte*) v;
     Assert.NotEqual((IntPtr) 0, v);
     Assert.Equal(1, p[0]);
@@ -87,8 +87,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateBinLiteral4() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral4)).GetValue(null));
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral4))!.GetValue(null)!);
     Assert.NotEqual((IntPtr) 0, (IntPtr) v);
     Assert.Equal(15, v[0]);
     Assert.Equal(14, v[1]);
@@ -110,8 +110,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateBinLiteral5() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var (v, l) = ((IntPtr, int)) t.GetField(nameof(SomeBinaryLiterals.BinLiteral5)).GetValue(null);
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var (v, l) = ((IntPtr, int)) t.GetField(nameof(SomeBinaryLiterals.BinLiteral5))!.GetValue(null)!;
     Assert.NotEqual((IntPtr) 0, v);
     Assert.Equal(4, l);
     var p = (byte*) v;
@@ -123,8 +123,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateBinLiteral6() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (ReadOnlyData<byte>) t.GetField(nameof(SomeBinaryLiterals.BinLiteral6)).GetValue(null);
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (ReadOnlyData<byte>) t.GetField(nameof(SomeBinaryLiterals.BinLiteral6))!.GetValue(null)!;
     var x = v.Pointer;
     Assert.NotEqual((IntPtr) 0, x);
     var p = (byte*) v;
@@ -137,24 +137,24 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateBinLiteral7() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral7)).GetValue(null));
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral7))!.GetValue(null)!);
     Assert.NotEqual((IntPtr) 0, (IntPtr) v);
     Assert.Equal(0x01, v[0]);
   }
 
   [Fact]
   public void ValidateBinLiteral8() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (ushort*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral8)).GetValue(null));
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (ushort*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral8))!.GetValue(null)!);
     Assert.NotEqual((IntPtr) 0, (IntPtr) v);
     Assert.Equal(0xAA55, v[0]);
   }
 
   [Fact]
   public void ValidateBinLiteral9() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral9)).GetValue(null));
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral9))!.GetValue(null)!);
     Assert.NotEqual((IntPtr) 0, (IntPtr) v);
     Assert.Equal(0x12, v[0]);
     Assert.Equal(0x34, v[1]);
@@ -162,8 +162,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateBinLiteral10() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral10)).GetValue(null));
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral10))!.GetValue(null)!);
     Assert.NotEqual((IntPtr) 0, (IntPtr) v);
     Assert.Equal(0x12, v[0]);
     Assert.Equal(0x34, v[1]);
@@ -171,8 +171,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateBinLiteral11() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral11)).GetValue(null));
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral11))!.GetValue(null)!);
     Assert.NotEqual((IntPtr) 0, (IntPtr) v);
     Assert.Equal(0x12, v[0]);
     Assert.Equal(0x34, v[1]);
@@ -180,8 +180,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateBinLiteral12() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral12)).GetValue(null));
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral12))!.GetValue(null)!);
     Assert.NotEqual((IntPtr) 0, (IntPtr) v);
     Assert.Equal(0xAB, v[0]);
     Assert.Equal(0xCD, v[1]);
@@ -189,8 +189,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateBinLiteral13() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var (v, l) = ((IntPtr, int)) t.GetField(nameof(SomeBinaryLiterals.BinLiteral13)).GetValue(null);
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var (v, l) = ((IntPtr, int)) t.GetField(nameof(SomeBinaryLiterals.BinLiteral13))!.GetValue(null)!;
     Assert.NotEqual((IntPtr) 0, (IntPtr) v);
     var p = (byte*) v;
     Assert.Equal(0xAB, p[0]);
@@ -199,8 +199,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateBinLiteral14() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral14)).GetValue(null));
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinLiteral14))!.GetValue(null)!);
     Assert.NotEqual((IntPtr) 0, (IntPtr) v);
     Assert.Equal(0xAB, v[0]);
     Assert.Equal(0xCD, v[1]);
@@ -210,8 +210,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public unsafe void ValidateBinLiteral15() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var (v, l) = ((IntPtr, long)) t.GetField(nameof(SomeBinaryLiterals.BinLiteral15)).GetValue(null);
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var (v, l) = ((IntPtr, long)) t.GetField(nameof(SomeBinaryLiterals.BinLiteral15))!.GetValue(null)!;
     Assert.NotEqual((IntPtr) 0, v);
     Assert.Equal(20, l);
     var s = Encoding.GetEncoding(28591).GetString((byte*) v, (int) l);
@@ -220,8 +220,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public unsafe void ValidateBinLiteral16() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var (v, l) = ((IntPtr, int)) t.GetField(nameof(SomeBinaryLiterals.BinLiteral16)).GetValue(null);
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var (v, l) = ((IntPtr, int)) t.GetField(nameof(SomeBinaryLiterals.BinLiteral16))!.GetValue(null)!;
     Assert.NotEqual((IntPtr) 0, v);
     Assert.Equal(19, l);
     var s = Encoding.GetEncoding(65000).GetString((byte*) v, l);
@@ -230,8 +230,8 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public unsafe void ValidateBinLiteral17() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (ReadOnlyData<byte>) t.GetField(nameof(SomeBinaryLiterals.BinLiteral17)).GetValue(null);
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (ReadOnlyData<byte>) t.GetField(nameof(SomeBinaryLiterals.BinLiteral17))!.GetValue(null)!;
     Assert.NotEqual((IntPtr) 0, v.Pointer);
     Assert.Equal(64, v.Length);
     // SHA3-512 of "Test"
@@ -245,10 +245,10 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public unsafe void ValidateReadOnlyData() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v6 = (ReadOnlyData<byte>) t.GetField(nameof(SomeBinaryLiterals.BinLiteral6)).GetValue(null);
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v6 = (ReadOnlyData<byte>) t.GetField(nameof(SomeBinaryLiterals.BinLiteral6))!.GetValue(null)!;
     Assert.NotEqual((IntPtr) 0, v6.Pointer);
-    var v17 = (ReadOnlyData<byte>) t.GetField(nameof(SomeBinaryLiterals.BinLiteral17)).GetValue(null);
+    var v17 = (ReadOnlyData<byte>) t.GetField(nameof(SomeBinaryLiterals.BinLiteral17))!.GetValue(null)!;
     Assert.NotEqual((IntPtr) 0, v17.Pointer);
     Assert.NotEqual(v6.Pointer, v17.Pointer);
     Assert.True(v6 != v17);
@@ -280,15 +280,11 @@ public unsafe class BinaryLiteralWeaverTests : WeaverTests {
 
   [Fact]
   public void ValidateNonBinLiterals() {
-    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals));
-    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.NonBinLiteral)).GetValue(null));
+    var t = TestResult.Assembly.GetType(nameof(SomeBinaryLiterals))!;
+    var v = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.NonBinLiteral))!.GetValue(null)!);
     Assert.Equal((IntPtr) 0, (IntPtr) v);
-    var x = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinNonLiteral)).GetValue(null));
+    var x = (byte*) Pointer.Unbox(t.GetField(nameof(SomeBinaryLiterals.BinNonLiteral))!.GetValue(null)!);
     Assert.Equal((IntPtr) 0, (IntPtr) x);
   }
-  
-#if NETSTANDARD2_1
-#endif
-  
 
 }
